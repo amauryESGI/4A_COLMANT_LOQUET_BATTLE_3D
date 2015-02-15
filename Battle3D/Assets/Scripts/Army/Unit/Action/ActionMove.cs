@@ -1,15 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class Move : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+﻿public class ActionMove : Action {
+	protected override void _Interact(ActionEvent actionType, Unit cible) {
+		if (actionType == ActionEvent.MoveOff) {
+			// TODO: move on cible
+			throw new System.NotImplementedException();
+		}
 	}
 }
