@@ -14,11 +14,9 @@ public class Scope {
 		if (pos1.isInCircle(_max, pos2)) {
 			if (!pos1.isInCircle(_min, pos2)) {
 				return 0;
-			} else {
-				return -1;
 			}
-		} else {
-			return 1;
+			return -1;
 		}
+		return 1;
 	}
 }

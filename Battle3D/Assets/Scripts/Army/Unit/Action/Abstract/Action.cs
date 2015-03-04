@@ -4,9 +4,11 @@ public enum ActionEvent {
 	MoveOff,
 	MoveDef,
 	Attack,
+	Support,
 	Guard,
 	Tank,
-	None
+	None,
+	Contourn
 };
 
 public abstract class Action {
@@ -15,11 +17,11 @@ public abstract class Action {
 	public int value { get; private set; }
 	public Unit owner { get; private set; }
 
-	protected abstract void _Interact(ActionEvent actionType, Unit entity);
+	protected abstract void _Interact(ActionEvent actionType, Vector3 pos);
 
-	private void Interact(ActionEvent actionType, Unit entity) {
+	private void Interact(ActionEvent actionType, Vector3 pos) {
 		try {
-			_Interact(actionType, entity);
+			_Interact(actionType, pos);
 		} catch (System.Exception e) {
 			Debug.LogException(e);
 		}

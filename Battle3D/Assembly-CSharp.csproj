@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Army\Unit\Misc\Scope.cs" />
      <Compile Include="Assets\Scripts\Army\Unit\Unit.cs" />
      <Compile Include="Assets\Scripts\Camera\ExtendedFlycam.cs" />
+     <Compile Include="Assets\Scripts\Camera\TimeSpeed.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
  </Reference>
