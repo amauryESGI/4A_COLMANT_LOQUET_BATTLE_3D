@@ -40,7 +40,7 @@ public class Unit : MonoBehaviour, IComparer<Unit> {
 
 	public	float _intervalOfUpdate	 = 1f;
 	private float _nextUpdate		 = 0f;
-
+	public Animator anim;
 	#endregion Declaration
 
 	public void Init(GameObject me, Vector3 pos, int health, int damage, int shield, float speed, int scopeMin, int scopeMax) {
@@ -92,8 +92,8 @@ public class Unit : MonoBehaviour, IComparer<Unit> {
 			} else {
 				if (Cible == null)
 					Ordre = ActionEvent.None;
-
-				// TODO : Stop animation (Wait)
+				//anim.SetBool("isIddle", true);
+				//anim.SetBool("isAttacking", false);
 				Na.Stop();
 			}
 		}

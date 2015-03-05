@@ -14,10 +14,12 @@ public class ActionGard : Action {
 				// TODO : Add modif animation
 			} else if (direction > 0) {
 				owner.isProtect = false;
-				// TODO : Walk animation
+				owner.anim.SetBool("isRunning", true);
+				//owner.anim.Play("run");
 				owner.Na.SetDestination(pos);
 			} else if (direction < 0) {
-				// TODO : Walk animation
+				owner.anim.SetBool("isRunning", true);
+				//owner.anim.Play("run");
 				owner.isProtect = false;
 				owner.Na.SetDestination(owner.Tr.position.PosOpposite(pos));
 			} else {

@@ -252,7 +252,8 @@ public class Army : MonoBehaviour {
 		if (unitsInRange.Count > 0) {
 			_listUnitsContournToChange.Add(unit);
 		} else {
-			// TODO : animation walk
+			unit.anim.SetBool("isRunning", true);
+			//unit.anim.Play("run");
 			unit.Ordre = ActionEvent.Contourn;
 			unit.Na.SetDestination(pos);
 		}
@@ -449,7 +450,7 @@ public class Army : MonoBehaviour {
 	}
 
 	private void RemoveUnit(Unit u) {
-		// TODO : Dead animation
+		u.anim.SetBool("isDead", true);
 		if (Units.Contains(u))
 			Units.Remove(u);
 		else if (UnitsContourn.Contains(u))
@@ -460,8 +461,8 @@ public class Army : MonoBehaviour {
 	}
 
 	private IEnumerator RemoveUnitC(Unit u) {
-		// TODO : Dead animation
-		if (Units.Contains(u))
+		u.anim.SetBool("isDead", true);
+		if(Units.Contains(u))
 			Units.Remove(u);
 		else if (UnitsContourn.Contains(u))
 			UnitsContourn.Remove(u);
