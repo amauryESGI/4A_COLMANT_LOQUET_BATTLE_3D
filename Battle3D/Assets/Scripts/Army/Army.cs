@@ -49,6 +49,8 @@ public class Army : MonoBehaviour {
 
 	public	float _intervalOfUpdate = 1f;
 	private float _nextUpdate;
+	private const float _coefContourn = -1f;
+
 	#endregion Declaration
 
 	void Start() {
@@ -178,18 +180,20 @@ public class Army : MonoBehaviour {
 			if (Time.time < _nextUpdate) {
 				if (unit.Ordre == ActionEvent.None) {
 					var C_enemy = GravityCenter(_enemies.SelectMany(enemy => enemy.Units));
-					var distance = GravityCenter(Units).Distance(C_enemy) / 2;
-					posToContourn.x = C_enemy.x + distance;
-					posToContourn.z = C_enemy.z + distance;
+					var C_army = GravityCenter(Units);
+					var distance = C_army.Distance(C_enemy) / 2;
+					posToContourn.x = distance + _coefContourn * ((C_army.z + C_enemy.z) / 2 - C_enemy.z) + C_enemy.x;
+					posToContourn.z = distance + _coefContourn * ((C_army.x + C_enemy.x) / 2 - C_enemy.x) + C_enemy.z;
 
 					StartCoroutine(UpdateUnitIAContourn(unit, posToContourn));
 				}
 			} else {
 				if (_intervalOfUpdate < 5) {
 					var C_enemy = GravityCenter(_enemies.SelectMany(enemy => enemy.Units));
-					var distance = GravityCenter(Units).Distance(C_enemy) / 2;
-					posToContourn.x = C_enemy.x + distance;
-					posToContourn.z = C_enemy.z + distance;
+					var C_army = GravityCenter(Units);
+					var distance = C_army.Distance(C_enemy) / 2;
+					posToContourn.x = distance + _coefContourn * ((C_army.z + C_enemy.z) / 2 - C_enemy.z) + C_enemy.x;
+					posToContourn.z = distance + _coefContourn * ((C_army.x+C_enemy.x)/2 - C_enemy.x) + C_enemy.z;
 
 					StartCoroutine(UpdateUnitIAContourn(unit, posToContourn));
 				}
