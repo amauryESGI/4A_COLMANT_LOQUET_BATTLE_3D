@@ -78,8 +78,6 @@ public class Unit : MonoBehaviour, IComparer<Unit> {
 			OnEntityInteraction(action, pos);
 	}
 
-
-	private readonly int _rand = Random.Range(0, 5);
 	void Update() {
 		if (Health <= 0)
 			Ordre = ActionEvent.None;
@@ -95,7 +93,7 @@ public class Unit : MonoBehaviour, IComparer<Unit> {
 				if (Cible == null)
 					Ordre = ActionEvent.None;
 
-				// TODO : Stop animation
+				// TODO : Stop animation (Wait)
 				Na.Stop();
 			}
 		}
@@ -106,6 +104,7 @@ public class Unit : MonoBehaviour, IComparer<Unit> {
 	}
 
 	public void takeDamage(int value) {
+		// TODO : Take Damage Animation
 		if (isProtect)
 			value -= ActionGuard.value;
 

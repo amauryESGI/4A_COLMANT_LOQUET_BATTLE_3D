@@ -16,8 +16,14 @@ public class Army : MonoBehaviour {
 	private float porte;
 	[SerializeField]
 	private GameObject Go;
+
 	[SerializeField]
-	private GameObject prefabUnit;
+	private GameObject prefabSoldat;
+	[SerializeField]
+	private GameObject prefabArchee;
+	[SerializeField]
+	private GameObject prefabTank;
+
 	[SerializeField]
 	private bool isRandom;
 	[SerializeField]
@@ -58,8 +64,17 @@ public class Army : MonoBehaviour {
 		_enemies = new List<Army>();
 		Units = new List<Unit>();
 
-		//_nbUnits = nbUnits / 2;
-		_nbUnits = nbUnits;
+		// DEBUG
+		if (nbUnits > 500) {
+			if (nbUnits < 1000)
+				_nbUnits = 500;
+			else
+				_nbUnits = nbUnits/2;
+		} else
+			_nbUnits = nbUnits;
+
+		// RELEASE
+		//_nbUnits = nbUnits;
 
 		UnitsContourn = new List<Unit>();
 		_listUnitsToRemove = new List<Unit>();
@@ -94,7 +109,7 @@ public class Army : MonoBehaviour {
 
 
 			if (Random.Range(0, 1) == 1 || isContourn) {
-				Debug.Log(string.Format("Army {0}\nArche : {1}, Soldat : {2}, Soldat Contourne : {2}, Tank : {3}", Team, _nbUnitsArch, _nbUnitsSoldat / 2, _nbUnitsTank));
+				//Debug.Log(string.Format("Army {0}\nArche : {1}, Soldat : {2}, Soldat Contourne : {2}, Tank : {3}", Team, _nbUnitsArch, _nbUnitsSoldat / 2, _nbUnitsTank));
 
 				for (int i = 0; i < _nbUnitsSoldat / 2; i++) {
 					StartCoroutine(AddUnitSoldat(_nextPos));
@@ -117,7 +132,7 @@ public class Army : MonoBehaviour {
 					NextPos();
 				}
 			} else {
-				Debug.Log(string.Format("Army {0}\nArche : {1}, Soldat : {2}, Tank : {3}", Team, _nbUnitsArch, _nbUnitsSoldat, _nbUnitsTank));
+				//Debug.Log(string.Format("Army {0}\nArche : {1}, Soldat : {2}, Tank : {3}", Team, _nbUnitsArch, _nbUnitsSoldat, _nbUnitsTank));
 
 				for (int i = 0; i < _nbUnitsSoldat; i++) {
 					StartCoroutine(AddUnitSoldat(_nextPos));
@@ -300,7 +315,7 @@ public class Army : MonoBehaviour {
 	}
 
 	private IEnumerator AddUnitRand(Vector3 pos) {
-		var go = (GameObject)Instantiate(prefabUnit);
+		var go = (GameObject)Instantiate(prefabSoldat);
 		var u = go.GetComponent<Unit>();
 
 		var damage		= Mathf.FloorToInt(Random.Range(_coefDamageMin, _coefDamageMax));
@@ -354,7 +369,7 @@ public class Army : MonoBehaviour {
 	}
 
 	private IEnumerator AddUnitArch(Vector3 pos) {
-		var go = (GameObject)Instantiate(prefabUnit);
+		var go = (GameObject)Instantiate(prefabArchee);
 		var u = go.GetComponent<Unit>();
 
 		u.Init(
@@ -374,7 +389,7 @@ public class Army : MonoBehaviour {
 	}
 
 	private IEnumerator AddUnitTank(Vector3 pos) {
-		var go = (GameObject)Instantiate(prefabUnit);
+		var go = (GameObject)Instantiate(prefabTank);
 		var u = go.GetComponent<Unit>();
 
 		u.Init(
@@ -394,7 +409,7 @@ public class Army : MonoBehaviour {
 	}
 
 	private IEnumerator AddUnitSoldat(Vector3 pos) {
-		var go = (GameObject)Instantiate(prefabUnit);
+		var go = (GameObject)Instantiate(prefabSoldat);
 		var u = go.GetComponent<Unit>();
 
 		u.Init(
@@ -414,7 +429,7 @@ public class Army : MonoBehaviour {
 	}
 
 	private IEnumerator AddUnitContourn(Vector3 pos) {
-		var go = (GameObject)Instantiate(prefabUnit);
+		var go = (GameObject)Instantiate(prefabSoldat);
 		var u = go.GetComponent<Unit>();
 
 		u.Init(
@@ -434,6 +449,7 @@ public class Army : MonoBehaviour {
 	}
 
 	private void RemoveUnit(Unit u) {
+		// TODO : Dead animation
 		if (Units.Contains(u))
 			Units.Remove(u);
 		else if (UnitsContourn.Contains(u))
@@ -444,6 +460,7 @@ public class Army : MonoBehaviour {
 	}
 
 	private IEnumerator RemoveUnitC(Unit u) {
+		// TODO : Dead animation
 		if (Units.Contains(u))
 			Units.Remove(u);
 		else if (UnitsContourn.Contains(u))

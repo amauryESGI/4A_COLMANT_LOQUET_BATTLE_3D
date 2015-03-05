@@ -13,12 +13,15 @@ public class ActionAttack : Action {
 			if (direction == 0) {
 				owner.Na.Stop();
 				if (Time.time > _nextAttack) {
+					// TODO : Attac animation
 					_nextAttack = Time.time + _cooldown;
 					owner.Cible.takeDamage(value);
 				}
 			} else if (direction > 0) {
+				// TODO : Walk animation
 				owner.Na.SetDestination(pos);
 			} else if (direction < 0) {
+				// TODO : Walk animation
 				owner.Na.SetDestination(owner.Tr.position.PosOpposite(pos));
 			} else {
 				// Erreur
@@ -36,8 +39,10 @@ public class ActionAttack : Action {
 					owner.Cible.Cible.takeDamage(value);
 				}
 			} else if (direction > 0) {
+				// TODO : Walk animation
 				owner.Na.SetDestination(destination);
 			} else if (direction < 0) {
+				// TODO : Walk animation
 				owner.Na.SetDestination(owner.Tr.position.PosOpposite(destination));
 			} else {
 				// Erreur
