@@ -11,19 +11,19 @@ public class ActionAttack : Action {
 			var direction = owner.IsInRangeOf(pos);
 
 			if (direction == 0) {
-				owner.anim.SetBool("isWaiting", true);
 				owner.Na.Stop();
 				if (Time.time > _nextAttack) {
-					owner.anim.SetBool("isAttacking", true);
+					owner.SetAnimation(EAnimation.isAttacking);
 					_nextAttack = Time.time + _cooldown;
 					owner.Cible.takeDamage(value);
 				}
+				owner.SetAnimation(EAnimation.isWaiting);
 			} else if (direction > 0) {
-				owner.anim.SetBool("isRunning", true);
+				owner.SetAnimation(EAnimation.isRunning);
 				//owner.anim.Play("run");
 				owner.Na.SetDestination(pos);
 			} else if (direction < 0) {
-				owner.anim.SetBool("isRunning", true);
+				owner.SetAnimation(EAnimation.isRunning);
 				//owner.anim.Play("run"); 
 				owner.Na.SetDestination(owner.Tr.position.PosOpposite(pos));
 			} else {
@@ -38,15 +38,17 @@ public class ActionAttack : Action {
 			if (direction == 0) {
 				owner.Na.Stop();
 				if (Time.time > _nextAttack) {
+					owner.SetAnimation(EAnimation.isAttacking);
 					_nextAttack = Time.time + _cooldown;
 					owner.Cible.Cible.takeDamage(value);
 				}
+				owner.SetAnimation(EAnimation.isWaiting);
 			} else if (direction > 0) {
-				owner.anim.SetBool("isRunning", true);
+				owner.SetAnimation(EAnimation.isRunning);
 				//owner.anim.Play("run"); 
 				owner.Na.SetDestination(destination);
 			} else if (direction < 0) {
-				owner.anim.SetBool("isRunning", true);
+				owner.SetAnimation(EAnimation.isRunning);
 				//owner.anim.Play("run"); 
 				owner.Na.SetDestination(owner.Tr.position.PosOpposite(destination));
 			} else {

@@ -92,8 +92,7 @@ public class Unit : MonoBehaviour, IComparer<Unit> {
 			} else {
 				if (Cible == null)
 					Ordre = ActionEvent.None;
-				//anim.SetBool("isWaiting", true);
-				//anim.SetBool("isAttacking", false);
+				SetAnimation(EAnimation.isWaiting);
 				Na.Stop();
 			}
 		}
@@ -146,5 +145,43 @@ public class Unit : MonoBehaviour, IComparer<Unit> {
 
 	public List<Unit> UnitsInRangeOf(IEnumerable<Unit> units) {
 		return units.Where(unit => IsInRangeOf(unit.Tr.position) == 0).ToList();
+	}
+
+	public void SetAnimation(EAnimation animChoice) {
+		anim.SetBool("isDead", false);
+		anim.SetBool("isAttacking", false);
+		anim.SetBool("isRunning", false);
+		anim.SetBool("isHit", false);
+		anim.SetBool("isWinning", false);
+		anim.SetBool("isWaiting", false);
+		anim.SetBool("isIddle", false);
+		anim.SetBool("isDanse", false);
+
+		switch (animChoice) {
+			case EAnimation.isDead:
+				anim.SetBool("isDead", true);
+				break;
+			case EAnimation.isAttacking:
+				anim.SetBool("isAttacking", true);
+				break;
+			case EAnimation.isRunning:
+				anim.SetBool("isRunning", true);
+				break;
+			case EAnimation.isHit:
+				anim.SetBool("isHit", true);
+				break;
+			case EAnimation.isWinning:
+				anim.SetBool("isWinning", true);
+				break;
+			case EAnimation.isWaiting:
+				anim.SetBool("isWaiting", true);
+				break;
+			case EAnimation.isIddle:
+				anim.SetBool("isIddle", true);
+				break;
+			case EAnimation.isDanse:
+				anim.SetBool("isDanse", true);
+				break;
+		}
 	}
 }

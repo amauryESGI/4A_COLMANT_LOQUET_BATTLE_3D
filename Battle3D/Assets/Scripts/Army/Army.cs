@@ -5,6 +5,17 @@ using System.Linq;
 
 using Random = UnityEngine.Random;
 
+public enum EAnimation {
+	isDead = 0,
+	isAttacking,
+	isRunning,
+	isHit,
+	isWinning,
+	isWaiting,
+	isIddle,
+	isDanse
+}
+
 public class Army : MonoBehaviour {
 	#region Declaration
 	[SerializeField, Range(1, 5000)]
@@ -69,7 +80,7 @@ public class Army : MonoBehaviour {
 			if (nbUnits < 1000)
 				_nbUnits = 500;
 			else
-				_nbUnits = nbUnits/2;
+				_nbUnits = nbUnits / 2;
 		} else
 			_nbUnits = nbUnits;
 
@@ -178,9 +189,15 @@ public class Army : MonoBehaviour {
 	}
 
 	void Update() {
+		if (!_enemies.SelectMany(enemy => enemy.Units).Any()) {
+			foreach (var unit in Units)
+				unit.SetAnimation(EAnimation.isDanse);
+			return;
+		}
+
 		var fps = 1.0f / Time.deltaTime;
 		if (fps < 30 && _intervalOfUpdate < 5)
-			_intervalOfUpdate *= 2f;
+			_intervalOfUpdate *= 1.5f;
 		else if (fps > 60 && _intervalOfUpdate > 0.1)
 			_intervalOfUpdate *= 0.9f;
 
@@ -208,7 +225,7 @@ public class Army : MonoBehaviour {
 					var C_army = GravityCenter(Units);
 					var distance = C_army.Distance(C_enemy) / 2;
 					posToContourn.x = distance + _coefContourn * ((C_army.z + C_enemy.z) / 2 - C_enemy.z) + C_enemy.x;
-					posToContourn.z = distance + _coefContourn * ((C_army.x+C_enemy.x)/2 - C_enemy.x) + C_enemy.z;
+					posToContourn.z = distance + _coefContourn * ((C_army.x + C_enemy.x) / 2 - C_enemy.x) + C_enemy.z;
 
 					StartCoroutine(UpdateUnitIAContourn(unit, posToContourn));
 				}
@@ -234,7 +251,7 @@ public class Army : MonoBehaviour {
 				_nextUpdate = Time.time + _intervalOfUpdate;
 			} else {
 				_nextUpdate = Time.time + _intervalOfUpdate;
-				if (_intervalOfUpdate < 5)
+				//if (_intervalOfUpdate < 5)
 					StartCoroutine(UpdateUnitIA(unit));
 			}
 		}
@@ -252,7 +269,7 @@ public class Army : MonoBehaviour {
 		if (unitsInRange.Count > 0) {
 			_listUnitsContournToChange.Add(unit);
 		} else {
-			unit.anim.SetBool("isRunning", true);
+			unit.SetAnimation(EAnimation.isRunning);
 			//unit.anim.Play("run");
 			unit.Ordre = ActionEvent.Contourn;
 			unit.Na.SetDestination(pos);
@@ -381,7 +398,7 @@ public class Army : MonoBehaviour {
 			5,		// Shield
 			1.25f,	// Speed
 			5,		// Scope Min
-			15		// Scope Max
+			10		// Scope Max
 			);
 		u.Type = EType.Arche;
 
@@ -421,7 +438,7 @@ public class Army : MonoBehaviour {
 			5,		// Shield
 			1f,		// Speed
 			1,		// Scope Min
-			4		// Scope Max
+			3		// Scope Max
 			);
 		u.Type = EType.Soldat;
 
@@ -441,7 +458,7 @@ public class Army : MonoBehaviour {
 			5,		// Shield
 			1f,		// Speed
 			1,		// Scope Min
-			4		// Scope Max
+			3		// Scope Max
 			);
 		u.Type = EType.Soldat;
 
@@ -450,7 +467,7 @@ public class Army : MonoBehaviour {
 	}
 
 	private void RemoveUnit(Unit u) {
-		u.anim.SetBool("isDead", true);
+		u.SetAnimation(EAnimation.isDead);
 		if (Units.Contains(u))
 			Units.Remove(u);
 		else if (UnitsContourn.Contains(u))
@@ -461,8 +478,8 @@ public class Army : MonoBehaviour {
 	}
 
 	private IEnumerator RemoveUnitC(Unit u) {
-		u.anim.SetBool("isDead", true);
-		if(Units.Contains(u))
+		u.SetAnimation(EAnimation.isDead);
+		if (Units.Contains(u))
 			Units.Remove(u);
 		else if (UnitsContourn.Contains(u))
 			UnitsContourn.Remove(u);

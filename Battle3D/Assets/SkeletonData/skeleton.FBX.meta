@@ -261,7 +261,23 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: -Infinity
+        functionName: RemoveEntity
+        data: 
+        objectReferenceParameter: {fileID: 100000, guid: 69989f1da374aaf4a89a1ae26fc6b0e6,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: -Infinity
+        functionName: RemoveUnit
+        data: 
+        objectReferenceParameter: {fileID: 100000, guid: 69989f1da374aaf4a89a1ae26fc6b0e6,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 0
       maskSource: {instanceID: 0}
