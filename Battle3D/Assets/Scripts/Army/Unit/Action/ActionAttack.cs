@@ -11,6 +11,7 @@ public class ActionAttack : Action {
 			var direction = owner.IsInRangeOf(pos);
 
 			if (direction == 0) {
+				owner.anim.SetBool("isWaiting", true);
 				owner.Na.Stop();
 				if (Time.time > _nextAttack) {
 					owner.anim.SetBool("isAttacking", true);

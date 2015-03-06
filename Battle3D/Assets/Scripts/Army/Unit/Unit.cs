@@ -92,7 +92,7 @@ public class Unit : MonoBehaviour, IComparer<Unit> {
 			} else {
 				if (Cible == null)
 					Ordre = ActionEvent.None;
-				//anim.SetBool("isIddle", true);
+				//anim.SetBool("isWaiting", true);
 				//anim.SetBool("isAttacking", false);
 				Na.Stop();
 			}
