@@ -86,7 +86,6 @@ public class Unit : MonoBehaviour, IComparer<Unit> {
 			if (Ordre == ActionEvent.Contourn) {
 				_nextUpdate = Time.time + _intervalOfUpdate;
 			} else if (Ordre != ActionEvent.None && Cible != null) {
-				//_nextUpdate = Time.time + _intervalOfUpdate + _intervalOfUpdate > 5 ? _rand : 0;
 				_nextUpdate = Time.time + _intervalOfUpdate;
 				Interact(Ordre, Cible.Tr.position);
 			} else {

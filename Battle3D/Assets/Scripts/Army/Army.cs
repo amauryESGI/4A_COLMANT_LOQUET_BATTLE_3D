@@ -196,9 +196,9 @@ public class Army : MonoBehaviour {
 		}
 
 		var fps = 1.0f / Time.deltaTime;
-		if (fps < 30 && _intervalOfUpdate < 5)
+		if (fps < 20 && _intervalOfUpdate < 5)
 			_intervalOfUpdate *= 1.5f;
-		else if (fps > 60 && _intervalOfUpdate > 0.1)
+		else if (fps > 40 && _intervalOfUpdate > 0.1)
 			_intervalOfUpdate *= 0.9f;
 
 		var posToContourn = new Vector3();
@@ -234,7 +234,7 @@ public class Army : MonoBehaviour {
 
 		foreach (var unitToRemove in _listUnitsContournToChange) {
 			UnitsContourn.Remove(unitToRemove);
-			Units.Remove(unitToRemove);
+			Units.Add(unitToRemove);
 		}
 		_listUnitsContournToChange.Clear();
 
@@ -252,9 +252,10 @@ public class Army : MonoBehaviour {
 			} else {
 				_nextUpdate = Time.time + _intervalOfUpdate;
 				//if (_intervalOfUpdate < 5)
-					StartCoroutine(UpdateUnitIA(unit));
+				StartCoroutine(UpdateUnitIA(unit));
 			}
 		}
+		//Debug.Log("nb unit : "+Units.Count);
 	}
 
 	void LateUpdate() {
@@ -270,7 +271,6 @@ public class Army : MonoBehaviour {
 			_listUnitsContournToChange.Add(unit);
 		} else {
 			unit.SetAnimation(EAnimation.isRunning);
-			//unit.anim.Play("run");
 			unit.Ordre = ActionEvent.Contourn;
 			unit.Na.SetDestination(pos);
 		}
@@ -438,7 +438,7 @@ public class Army : MonoBehaviour {
 			5,		// Shield
 			1f,		// Speed
 			1,		// Scope Min
-			3		// Scope Max
+			4		// Scope Max
 			);
 		u.Type = EType.Soldat;
 
@@ -479,14 +479,14 @@ public class Army : MonoBehaviour {
 
 	private IEnumerator RemoveUnitC(Unit u) {
 		u.SetAnimation(EAnimation.isDead);
+		yield return new WaitForSeconds(3f);
 		if (Units.Contains(u))
 			Units.Remove(u);
 		else if (UnitsContourn.Contains(u))
 			UnitsContourn.Remove(u);
 
 		u.unInitUnit();
-		Destroy(u.Go);
-		yield return null;
+		Destroy(u);
 	}
 
 	private void NextPos() {
