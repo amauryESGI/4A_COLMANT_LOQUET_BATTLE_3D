@@ -479,7 +479,6 @@ public class Army : MonoBehaviour {
 
 	private IEnumerator RemoveUnitC(Unit u) {
 		u.SetAnimation(EAnimation.isDead);
-		yield return new WaitForSeconds(3f);
 		if (Units.Contains(u))
 			Units.Remove(u);
 		else if (UnitsContourn.Contains(u))
@@ -487,6 +486,7 @@ public class Army : MonoBehaviour {
 
 		u.unInitUnit();
 		Destroy(u);
+		yield return null;
 	}
 
 	private void NextPos() {

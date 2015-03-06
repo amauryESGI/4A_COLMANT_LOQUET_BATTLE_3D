@@ -56,8 +56,7 @@ public class ActionAttack : Action {
 					// Erreur
 					throw new System.NotImplementedException();
 				}
-			} else
-			{
+			} else {
 				owner.Ordre = ActionEvent.None;
 			}
 		}
